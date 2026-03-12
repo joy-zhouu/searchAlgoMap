@@ -8,19 +8,115 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
+
   <div id="map"></div>
 
+  <!-- ── UI Panel ──────────────────────────────────────────────────────────── -->
+  <div id="panel">
+
+    <!-- Inverted title bar -->
+    <div id="panel-header">
+      <span class="header-blink">█</span>
+      <span class="panel-title">// PATHFINDER ALGOS</span>
+      <span class="header-blink">█</span>
+    </div>
+
+    <div class="term-body">
+
+      <div class="panel-subtitle">MONTREAL ROAD NETWORK</div>
+
+      <div class="term-prompt">C:\&gt; SELECT ALGORITHM_</div>
+
+      <!-- Algorithm list -->
+      <div id="algo-list">
+
+        <button class="algo-item active" data-algo="astar"
+                onclick="selectAlgorithm('astar')">
+          <span class="algo-left">
+            <span class="algo-indicator">&#9654;</span>
+            <span class="algo-key">[1]</span>
+            <span class="algo-name-term">A-STAR</span>
+          </span>
+          <span class="algo-tag-term optimal">[OPTIMAL]</span>
+        </button>
+
+        <button class="algo-item" data-algo="dijkstra"
+                onclick="selectAlgorithm('dijkstra')">
+          <span class="algo-left">
+            <span class="algo-indicator">&nbsp;</span>
+            <span class="algo-key">[2]</span>
+            <span class="algo-name-term">DIJKSTRA</span>
+          </span>
+          <span class="algo-tag-term optimal">[OPTIMAL]</span>
+        </button>
+
+        <button class="algo-item" data-algo="bfs"
+                onclick="selectAlgorithm('bfs')">
+          <span class="algo-left">
+            <span class="algo-indicator">&nbsp;</span>
+            <span class="algo-key">[3]</span>
+            <span class="algo-name-term">BFS</span>
+          </span>
+          <span class="algo-tag-term hop">[HOP-OPT]</span>
+        </button>
+
+        <button class="algo-item" data-algo="dfs"
+                onclick="selectAlgorithm('dfs')">
+          <span class="algo-left">
+            <span class="algo-indicator">&nbsp;</span>
+            <span class="algo-key">[4]</span>
+            <span class="algo-name-term">DFS</span>
+          </span>
+          <span class="algo-tag-term warn">[NOT OPT.]</span>
+        </button>
+
+      </div><!-- /#algo-list -->
+
+      <div class="term-divider"></div>
+
+      <!-- Per-algorithm readout lines -->
+      <div id="algo-readout">
+        <div>&gt; LOADED: A*</div>
+        <div>&gt; STRATEGY: HEURISTIC_GUIDED</div>
+        <div>&gt; GUARANTEE: DISTANCE_OPTIMAL</div>
+      </div>
+
+      <div class="term-divider"></div>
+
+      <!-- Status line with blinking cursor -->
+      <div id="status-line">
+        <span id="status-text">&gt; AWAITING INPUT</span><span id="status-cursor" class="cursor">&nbsp;█</span>
+      </div>
+
+      <div class="term-divider"></div>
+
+      <!-- Controls -->
+      <div id="controls-line">
+        <div>[CLICK] PLACE POINT</div>
+        <div>[1-4]&nbsp;&nbsp; CHANGE ALGO</div>
+        <div>[SPC]&nbsp;&nbsp; PAUSE / RESUME</div>
+        <div>[R]&nbsp;&nbsp;&nbsp;&nbsp; RESET</div>
+      </div>
+
+    </div><!-- /.term-body -->
+
+  </div><!-- /#panel -->
+
+  <!-- Scripts — order matters: state → utils → graph → algos → map → visualize -->
+  <script src="js/state.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/graph.js"></script>
   <script src="js/astar.js"></script>
-  <!--<script src="p5.min.js"></script>-->
+  <script src="js/dijkstra.js"></script>
+  <script src="js/bfs.js"></script>
+  <script src="js/dfs.js"></script>
   <script src="js/map.js"></script>
   <script src="js/visualize.js"></script>
   <script>
-  initMap();
-</script>
+    initMap();
+  </script>
+
 </body>
 </html>
